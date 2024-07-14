@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "433551306806",
+    "project_id": "shopping-admin-app-62df2",
+    "storage_bucket": "shopping-admin-app-62df2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433551306806:android:cd7d618d9365a44b60e897",
+        "android_client_info": {
+          "package_name": "com.example.shopnow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVVI0tuKlr43PX3LdS66YHp5EiOUCMI3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433551306806:android:8672e342eedb5eed60e897",
+        "android_client_info": {
+          "package_name": "com.example.shoppingappadmin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVVI0tuKlr43PX3LdS66YHp5EiOUCMI3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
