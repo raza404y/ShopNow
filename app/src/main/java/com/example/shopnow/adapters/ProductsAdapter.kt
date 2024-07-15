@@ -1,42 +1,44 @@
-package com.example.shopnow.adapters
-
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.shopnow.R
+import com.bumptech.glide.R
+import com.example.shopnow.DiffUtilsCallback
+import com.example.shopnow.OnItemClick
 import com.example.shopnow.databinding.ForsaleDesignRvBinding
 import com.example.shopnow.models.Products
 
-class ProductsAdapter(private val list: ArrayList<Products>, private val context: Context) :
-    RecyclerView.Adapter<ProductsAdapter.mViewHolder>() {
+class ProductsAdapter(private val itemClick: OnItemClick) : ListAdapter<Products,ProductsAdapter.ProductsViewHolder>(DiffUtilsCallback){
 
-    class mViewHolder(val binding: ForsaleDesignRvBinding) : RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mViewHolder {
-        val view = ForsaleDesignRvBinding.inflate(LayoutInflater.from(context), parent, false)
-        return mViewHolder(view)
-    }
-
-    override fun getItemCount(): Int {
-        return list.size
-    }
-
-    override fun onBindViewHolder(holder: mViewHolder, position: Int) {
-
-        holder.binding.productName.text = list[position].productName
-        holder.binding.productPrice.text = list[position].price.toString()
-        val url = list[position].productImgUrl
-        if (url.isNotEmpty()) {
-            Glide.with(context)
-                .load(url)
-                .centerCrop()
-                .placeholder(R.drawable.dresss)
-                .into(holder.binding.productImage)
+    class ProductsViewHolder(private var binding: ForsaleDesignRvBinding,itemClick: OnItemClick):RecyclerView.ViewHolder(binding.root){
+        fun setData(products: Products){
+            binding.apply {
+                productName.text = products.productName
+                productPrice.text = products.price.toString()
+                Glide.with(itemView.context)
+                    .load(products.productImgUrl)
+                    .placeholder(com.example.shopnow.R.drawable.dresss)
+                    .into(productImage)
+            }
         }
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsViewHolder {
+        val binding = ForsaleDesignRvBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return ProductsViewHolder(binding, itemClick)
+    }
+
+    override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
+        val currItem = getItem(position)
+        holder.setData(currItem)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.shopnow.fragments
 
+import ProductsAdapter
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
@@ -7,12 +8,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shopnow.Constants
+import com.example.shopnow.OnItemClick
 import com.example.shopnow.R
 import com.example.shopnow.adapters.CategoryAdapter
-import com.example.shopnow.adapters.ProductsAdapter
 import com.example.shopnow.adapters.SliderAdapter
 import com.example.shopnow.databinding.FragmentHomeBinding
 import com.example.shopnow.models.Categories
@@ -29,14 +31,21 @@ import java.util.Collections
 
 class Home : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    var sliderView: SliderView? = null
-   lateinit var adapterSlider : SliderAdapter
+    lateinit var adapterSlider: SliderAdapter
+    val OnItemClick by lazy {
+        object : OnItemClick {
+            override fun itemClick(products: Products, position: Int) {
+                Toast.makeText(requireContext(), products.price, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-         binding = FragmentHomeBinding.inflate(inflater,container,false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -48,19 +57,20 @@ class Home : Fragment() {
 
         val categoriesList = ArrayList<Categories>()
 
-        for(i in 1..10){
-            categoriesList.add(Categories(R.drawable.dresss,"Dresses"))
+        for (i in 1..10) {
+            categoriesList.add(Categories(R.drawable.dresss, "Dresses"))
         }
 
-        val adapter = CategoryAdapter(categoriesList,requireContext())
+        val adapter = CategoryAdapter(categoriesList, requireContext())
         binding.categoriesRv.adapter = adapter
-        val layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.categoriesRv.layoutManager = layoutManager
 
 
         val sliderView = view.findViewById<SliderView>(R.id.imageSlider)
 
-       adapterSlider =  SliderAdapter(requireContext());
+        adapterSlider = SliderAdapter(requireContext());
         sliderView.setSliderAdapter(adapterSlider);
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
@@ -87,6 +97,7 @@ class Home : Fragment() {
 
 
     }
+
     private fun renewItems(view: View?) {
         val sliderItemList: MutableList<SliderItem> = ArrayList()
         //dummy data
@@ -110,26 +121,28 @@ class Home : Fragment() {
 
     fun addNewItem(view: View?) {
         val sliderItem = SliderItem()
-        sliderItem.image = "https://images.pexels.com/photos/929778/pexels-photo-929778.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+        sliderItem.image =
+            "https://images.pexels.com/photos/929778/pexels-photo-929778.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
         adapterSlider.addItem(sliderItem)
     }
 
-    private fun getAllProducts(){
+    private fun getAllProducts() {
         val productList = ArrayList<Products>()
-        val adapter = ProductsAdapter(productList, requireContext())
+        val adapter = ProductsAdapter(OnItemClick)
         binding.forsaleRecyclerView.adapter = adapter
-        val layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.forsaleRecyclerView.layoutManager = layoutManager
 
 
         Firebase.firestore.collection(Constants.products).get().addOnSuccessListener {
-           productList.clear()
-            for(i in it){
+            productList.clear()
+            for (i in it) {
                 val products = i.toObject(Products::class.java)
                 productList.add(products)
             }
             productList.shuffle()
-            adapter.notifyItemInserted(productList.size-1)
+            adapter.submitList(productList)
         }
 
     }
