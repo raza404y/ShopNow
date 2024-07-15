@@ -30,5 +30,6 @@
     <string name="categories">Categories</string>
     <string name="see_more">See more</string>
     <string name="for_sale">For Sale</string>
-    <string name="rs">Rs</string>
+    <string name="rs">Rs.</string>
+    <string name="gf32498">GF32498</string>
 </resources>

@@ -1,21 +1,30 @@
 package com.example.shopnow.fragments
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.shopnow.Constants
 import com.example.shopnow.R
 import com.example.shopnow.adapters.CategoryAdapter
+import com.example.shopnow.adapters.ProductsAdapter
 import com.example.shopnow.adapters.SliderAdapter
 import com.example.shopnow.databinding.FragmentHomeBinding
 import com.example.shopnow.models.Categories
+import com.example.shopnow.models.Products
 import com.example.shopnow.models.SliderItem
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.toObject
+import com.google.firebase.ktx.Firebase
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
+import java.util.Collections
 
 
 class Home : Fragment() {
@@ -35,13 +44,15 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getAllProducts()
+
         val categoriesList = ArrayList<Categories>()
 
         for(i in 1..10){
             categoriesList.add(Categories(R.drawable.dresss,"Dresses"))
         }
 
-        var adapter = CategoryAdapter(categoriesList,requireContext())
+        val adapter = CategoryAdapter(categoriesList,requireContext())
         binding.categoriesRv.adapter = adapter
         val layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         binding.categoriesRv.layoutManager = layoutManager
@@ -101,5 +112,25 @@ class Home : Fragment() {
         val sliderItem = SliderItem()
         sliderItem.image = "https://images.pexels.com/photos/929778/pexels-photo-929778.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
         adapterSlider.addItem(sliderItem)
+    }
+
+    private fun getAllProducts(){
+        val productList = ArrayList<Products>()
+        val adapter = ProductsAdapter(productList, requireContext())
+        binding.forsaleRecyclerView.adapter = adapter
+        val layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        binding.forsaleRecyclerView.layoutManager = layoutManager
+
+
+        Firebase.firestore.collection(Constants.products).get().addOnSuccessListener {
+           productList.clear()
+            for(i in it){
+                val products = i.toObject(Products::class.java)
+                productList.add(products)
+            }
+            productList.shuffle()
+            adapter.notifyItemInserted(productList.size-1)
+        }
+
     }
 }
