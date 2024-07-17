@@ -98,14 +98,15 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:maxLines="2"
+                android:layout_gravity="center_vertical"
                 android:padding="@dimen/_3sdp"
                 android:text="@string/color2"
                 android:textSize="@dimen/_11ssp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/colorCodeBtn"
-                android:layout_width="@dimen/_26sdp"
-                android:layout_height="@dimen/_26sdp"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
                 android:layout_marginStart="@dimen/_4sdp"
                 android:padding="@dimen/_3sdp"
                 android:paddingStart="@dimen/_4sdp"

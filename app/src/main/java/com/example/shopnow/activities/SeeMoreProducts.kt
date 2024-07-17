@@ -11,6 +11,7 @@ import com.example.shopnow.models.Products
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
 
 class SeeMoreProducts : AppCompatActivity() {
     private val binding : ActivitySeeMoreProductsBinding by lazy {
@@ -38,9 +39,8 @@ class SeeMoreProducts : AppCompatActivity() {
             adapter.submitList(arrayList)
         }
 
+        binding.backbtn.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
-
-
-
-
 }
