@@ -61,7 +61,6 @@ class SignUp : AppCompatActivity(),MyLoadingButton.MyLoadingButtonClick {
                 val users = Users(firstName, lastName, email, password)
                 Firebase.firestore.collection(Constants.users).document(task.result.user!!.uid).set(users).addOnCompleteListener{task ->
                     if (task.isSuccessful){
-                        binding.signupBtn.showNormalButton()
                        startActivity(Intent(this@SignUp,Login::class.java))
                         finish()
                         showToast("Account created")

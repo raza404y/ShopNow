@@ -16,6 +16,8 @@
     </style>
 
 
-
+    <style name="textColor" parent="">
+        <item name="android:textColor">@color/pink</item>
+    </style>
 
 </resources>

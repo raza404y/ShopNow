@@ -45,7 +45,6 @@ class Login : AppCompatActivity(),MyLoadingButton.MyLoadingButtonClick {
         binding.loginBtn.showLoadingButton()
         Firebase.auth.signInWithEmailAndPassword(email,password).addOnCompleteListener { it ->
             if (it.isSuccessful){
-                binding.loginBtn.showNormalButton()
                 startActivity(Intent(this@Login,MainActivity::class.java))
                 finish()
             }else{

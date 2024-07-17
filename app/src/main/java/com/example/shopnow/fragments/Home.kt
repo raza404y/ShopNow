@@ -1,10 +1,9 @@
 package com.example.shopnow.fragments
 
 import ProductsAdapter
-import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shopnow.Constants
-import com.example.shopnow.OnItemClick
 import com.example.shopnow.R
+import com.example.shopnow.activities.SeeMoreProducts
 import com.example.shopnow.adapters.CategoryAdapter
 import com.example.shopnow.adapters.SliderAdapter
 import com.example.shopnow.databinding.FragmentHomeBinding
@@ -21,24 +20,15 @@ import com.example.shopnow.models.Categories
 import com.example.shopnow.models.Products
 import com.example.shopnow.models.SliderItem
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
-import java.util.Collections
 
 
 class Home : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     lateinit var adapterSlider: SliderAdapter
-    val OnItemClick by lazy {
-        object : OnItemClick {
-            override fun itemClick(products: Products, position: Int) {
-                Toast.makeText(requireContext(), products.price, Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,11 +45,22 @@ class Home : Fragment() {
 
         getAllProducts()
 
+
+        binding.seemoreBtn.setOnClickListener {
+            startActivity(Intent(requireContext(),SeeMoreProducts::class.java))
+        }
+
         val categoriesList = ArrayList<Categories>()
 
-        for (i in 1..10) {
-            categoriesList.add(Categories(R.drawable.dresss, "Dresses"))
-        }
+
+        categoriesList.add(Categories(R.drawable.dresss, "Casual"))
+        categoriesList.add(Categories(R.drawable.dresss, "Formal"))
+        categoriesList.add(Categories(R.drawable.dresss, "Party"))
+        categoriesList.add(Categories(R.drawable.dresss, "Summer"))
+        categoriesList.add(Categories(R.drawable.dresss, "Winter"))
+        categoriesList.add(Categories(R.drawable.dresss, "Maxi"))
+
+
 
         val adapter = CategoryAdapter(categoriesList, requireContext())
         binding.categoriesRv.adapter = adapter
@@ -128,17 +129,18 @@ class Home : Fragment() {
 
     private fun getAllProducts() {
         val productList = ArrayList<Products>()
-        val adapter = ProductsAdapter(OnItemClick)
+        val adapter = ProductsAdapter(requireContext())
         binding.forsaleRecyclerView.adapter = adapter
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.forsaleRecyclerView.layoutManager = layoutManager
 
 
-        Firebase.firestore.collection(Constants.products).get().addOnSuccessListener {
+        Firebase.firestore.collection(Constants.products).limit(5).get().addOnSuccessListener {
             productList.clear()
             for (i in it) {
                 val products = i.toObject(Products::class.java)
+                products.id = i.id
                 productList.add(products)
             }
             productList.shuffle()

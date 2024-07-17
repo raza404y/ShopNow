@@ -32,4 +32,14 @@
     <string name="for_sale">For Sale</string>
     <string name="rs">Rs.</string>
     <string name="gf32498">GF32498</string>
+    <string name="_0">0</string>
+    <string name="size">Size</string>
+    <string name="m">M</string>
+    <string name="x">X</string>
+    <string name="xl">XL</string>
+    <string name="color">Color</string>
+    <string name="description">Description</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="add_to_wish_list">Add to Wish list</string>
+    <string name="color2">Color</string>
 </resources>

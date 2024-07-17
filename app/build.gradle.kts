@@ -61,6 +61,7 @@ dependencies {
     // rounded imageview
     implementation ("com.makeramen:roundedimageview:2.3.0")
 
+    implementation("io.coil-kt:coil:2.6.0")
 
     implementation ("com.github.smarteist:autoimageslider:1.4.0-appcompat")
 

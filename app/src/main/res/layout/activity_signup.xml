@@ -37,7 +37,7 @@
             <EditText
                 android:id="@+id/firstName"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:textSize="@dimen/_12ssp"
                 android:hint="@string/first_name"
                 android:layout_marginTop="@dimen/_8sdp"
@@ -54,7 +54,7 @@
             <EditText
                 android:id="@+id/lastName"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:textSize="@dimen/_12ssp"                android:hint="@string/last_name"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:padding="@dimen/_10sdp"
@@ -72,7 +72,7 @@
         <EditText
             android:id="@+id/emailEt"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="@dimen/_35sdp"
             android:textSize="@dimen/_12ssp"            android:hint="@string/email"
             android:layout_marginTop="@dimen/_10sdp"
             android:padding="@dimen/_10sdp"
@@ -87,7 +87,7 @@
         <EditText
             android:id="@+id/createPasswordEt"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="@dimen/_35sdp"
             android:textSize="@dimen/_12ssp"            android:hint="@string/create_password"
             android:layout_marginTop="@dimen/_10sdp"
             android:padding="@dimen/_10sdp"
@@ -101,7 +101,7 @@
         <EditText
             android:id="@+id/confirmPasswordEt"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:autofillHints=""
             android:background="@drawable/edittext_bg"
@@ -116,7 +116,7 @@
         <com.example.myloadingbutton.MyLoadingButton
             android:id="@+id/signupBtn"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             app:rippleColor="@color/white"
