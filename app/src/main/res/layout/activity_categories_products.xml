@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".activities.CategoriesProducts">
+
+    <TextView
+        android:id="@+id/backbtn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
+        android:drawablePadding="@dimen/_12sdp"
+        android:textColor="@color/black"
+        android:text="@string/see_more"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingEnd="@dimen/_10sdp"
+        android:paddingTop="@dimen/_6sdp"
+        android:paddingBottom="@dimen/_6sdp"
+        app:drawableStartCompat="@drawable/back_btn" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoriesRV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

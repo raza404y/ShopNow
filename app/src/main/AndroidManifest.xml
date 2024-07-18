@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ShopNow"
         tools:targetApi="31">
         <activity
+            android:name=".activities.CategoriesProducts"
+            android:exported="false" />
+        <activity
             android:name=".activities.SeeMoreProducts"
             android:exported="false" />
         <activity

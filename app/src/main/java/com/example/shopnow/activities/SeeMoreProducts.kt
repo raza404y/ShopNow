@@ -33,6 +33,7 @@ class SeeMoreProducts : AppCompatActivity() {
             arrayList.clear()
             for (products in it){
                 val allProducts = products.toObject(Products::class.java)
+                allProducts.id = products.id
                 arrayList.add(allProducts)
             }
             arrayList.shuffle()

@@ -2,10 +2,10 @@ package com.example.shopnow.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import coil.load
 import com.example.shopnow.Constants
-import com.example.shopnow.R
 import com.example.shopnow.databinding.ActivityProductDetailsBinding
 import com.example.shopnow.models.Products
 import com.google.firebase.firestore.ktx.firestore
@@ -15,27 +15,20 @@ class ProductDetails : AppCompatActivity() {
     private val binding: ActivityProductDetailsBinding by lazy {
         ActivityProductDetailsBinding.inflate(layoutInflater)
     }
-    lateinit var id: String
-    var count: Int = 0
+    private lateinit var idFromMain: String
+    private lateinit var idFromSeeMore: String
+    private var count: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         enableEdgeToEdge()
-        id = intent.getStringExtra("key_id").toString()
-        Firebase.firestore.collection(Constants.products).document(id).get().addOnSuccessListener {
-            val products = it.toObject(Products::class.java)
-            products?.id = it.id
+        idFromMain = intent.getStringExtra("key_id").toString()
+        idFromSeeMore = intent.getStringExtra("id").toString()
 
-            binding.dressImage.load(products?.productImgUrl) {
-                crossfade(true)
-            }
-            products?.apply {
-                binding.dressNameTv.text = productName
-                binding.priceTv.text = price.toString()
-                binding.description.text = description
-            }
-        }
+            loadData(idFromSeeMore)
+            loadData(idFromMain)
+
 
         binding.increment.setOnClickListener {
             binding.counterTv.text = (++count).toString()
@@ -48,4 +41,21 @@ class ProductDetails : AppCompatActivity() {
         }
 
     }
+
+    private fun loadData(productId: String) {
+        Firebase.firestore.collection(Constants.products).document(productId).get().addOnSuccessListener {
+            val products = it.toObject(Products::class.java)
+            products?.id = it.id
+
+            binding.dressImage.load(products?.productImgUrl) {
+                crossfade(true)
+            }
+            products?.apply {
+                binding.dressNameTv.text = productName
+                binding.priceTv.text = price.toString()
+                binding.description.text = description
+            }
+        }
+    }
+
 }

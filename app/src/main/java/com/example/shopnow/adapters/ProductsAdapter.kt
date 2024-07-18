@@ -19,7 +19,7 @@ class ProductsAdapter(private val context: Context) : ListAdapter<Products,Produ
                 productPrice.text = products.price.toString()
                 Glide.with(itemView.context)
                     .load(products.productImgUrl)
-                    .placeholder(com.example.shopnow.R.drawable.dresss)
+                    .placeholder(com.example.shopnow.R.drawable.emptyimg)
                     .into(productImage)
 
             }
