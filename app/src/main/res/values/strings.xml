@@ -50,4 +50,10 @@
     <string name="_1">1</string>
     <string name="add_to_cart">Add to cart</string>
     <string name="add_to_wishlist">Add to Wishlist</string>
+    <string name="logout">logout</string>
+    <string name="name">Name</string>
+    <string name="email2">Email</string>
+    <string name="phone_no">Phone No.</string>
+    <string name="save">Save</string>
+    <string name="edit_profile">Edit Profile</string>
 </resources>

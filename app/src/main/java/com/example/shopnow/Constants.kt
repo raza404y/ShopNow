@@ -8,5 +8,6 @@ object Constants {
     const val ADDED_TO_CART = "addedToCart"
     const val FAVOURITE = "favourite"
     const val USERS = "users"
+    const val USERS_INFO = "usersInfo"
 
 }
