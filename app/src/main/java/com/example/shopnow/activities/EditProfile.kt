@@ -1,21 +1,17 @@
 package com.example.shopnow.activities
 
 import android.app.Activity
-import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.myloadingbutton.MyLoadingButton
 import com.example.shopnow.Constants
-import com.example.shopnow.R
 import com.example.shopnow.databinding.ActivityEditProfileBinding
-import com.example.shopnow.fragments.Profile
 import com.example.shopnow.models.UserProfile
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.auth.ktx.auth
