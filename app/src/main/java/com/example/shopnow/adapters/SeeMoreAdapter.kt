@@ -46,8 +46,11 @@ class SeeMoreAdapter(val context: Context) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
         return position
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 }
 

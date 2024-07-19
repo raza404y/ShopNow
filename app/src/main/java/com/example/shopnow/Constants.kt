@@ -1,8 +1,12 @@
 package com.example.shopnow
 
 object Constants {
-    val images : String by lazy {"images"}
-    val products : String by lazy { "products" }
-    val users : String by lazy { "users" }
+    const val IMAGES = "images"
+    const val PRODUCTS = "products"
+    const val WISHLIST = "wishlist"
+    const val CART = "cart"
+    const val ADDED_TO_CART = "addedToCart"
+    const val FAVOURITE = "favourite"
+    const val USERS = "users"
 
 }

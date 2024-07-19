@@ -42,4 +42,12 @@
     <string name="buy_now">Buy Now</string>
     <string name="add_to_wish_list">Add to Wish list</string>
     <string name="color2">Color</string>
+    <string name="favourites">Favourites</string>
+    <string name="see_your_favourites_here">See your favourites here</string>
+    <string name="continue_shopping">Continue Shopping</string>
+    <string name="sub_total">Sub total : </string>
+    <string name="check_out">Check Out</string>
+    <string name="_1">1</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="add_to_wishlist">Add to Wishlist</string>
 </resources>

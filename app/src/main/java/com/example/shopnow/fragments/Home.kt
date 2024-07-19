@@ -136,7 +136,7 @@ class Home : Fragment() {
         binding.forsaleRecyclerView.layoutManager = layoutManager
 
 
-        Firebase.firestore.collection(Constants.products).limit(5).get().addOnSuccessListener {
+        Firebase.firestore.collection(Constants.PRODUCTS).limit(5).get().addOnSuccessListener {
             productList.clear()
             for (i in it) {
                 val products = i.toObject(Products::class.java)

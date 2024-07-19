@@ -9,6 +9,7 @@ import com.example.shopnow.Constants
 import com.example.shopnow.adapters.SeeMoreAdapter
 import com.example.shopnow.databinding.ActivityCategoriesProductsBinding
 import com.example.shopnow.models.Products
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -35,8 +36,7 @@ class CategoriesProducts : AppCompatActivity() {
         val categoryName = intent.getStringExtra("key_name")
         binding.backbtn.text = "$categoryName Category"
 
-        Firebase.firestore.collection(Constants.products).whereEqualTo("category", categoryName)
-            .get()
+        Firebase.firestore.collection(Constants.PRODUCTS).whereEqualTo("category", categoryName).get()
             .addOnSuccessListener { querySnapshot ->
                 arrayList.clear()
                 if (!querySnapshot.isEmpty) {
@@ -54,5 +54,6 @@ class CategoriesProducts : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Log.e("Firestore", "Error fetching documents", e)
             }
+
     }
 }

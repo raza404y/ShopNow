@@ -8,6 +8,9 @@ class Products{
     var description: String = ""
     var id: String? = null
 
+
+
+
     constructor()
 
 }

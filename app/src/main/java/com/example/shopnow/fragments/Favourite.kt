@@ -5,56 +5,58 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.shopnow.Constants
 import com.example.shopnow.R
+import com.example.shopnow.adapters.SeeMoreAdapter
+import com.example.shopnow.adapters.WishListAdapter
+import com.example.shopnow.databinding.FragmentFavouriteBinding
+import com.example.shopnow.models.Products
+import com.example.shopnow.models.WishList
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.toObject
+import com.google.firebase.ktx.Firebase
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Favourite.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Favourite : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    private lateinit var binding: FragmentFavouriteBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favourite, container, false)
+        binding = FragmentFavouriteBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Favourite.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Favourite().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        val adapter = WishListAdapter(requireContext())
+        val arrayList = ArrayList<WishList>()
+        binding.favouritesRV.adapter = adapter
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.favouritesRV.layoutManager = layoutManager
+        layoutManager.reverseLayout = true
+        layoutManager.stackFromEnd = true
+
+        Firebase.firestore.collection(Constants.WISHLIST).document(Firebase.auth.currentUser!!.uid)
+            .collection(Constants.FAVOURITE).get().addOnSuccessListener {
+                if (!it.isEmpty){
+                    arrayList.clear()
+                    for (p in it){
+                        val products = p.toObject(WishList::class.java)
+                        arrayList.add(products)
+                    }
+                    adapter.submitList(arrayList)
+                }else{
+                    Toast.makeText(requireContext(), "empty list", Toast.LENGTH_SHORT).show()
                 }
             }
+
     }
 }

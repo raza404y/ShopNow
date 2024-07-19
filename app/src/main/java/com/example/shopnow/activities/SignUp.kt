@@ -1,15 +1,15 @@
 package com.example.shopnow.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.myloadingbutton.MyLoadingButton
 import com.example.shopnow.Constants
-import com.example.shopnow.models.Users
 import com.example.shopnow.databinding.ActivitySignupBinding
+import com.example.shopnow.models.Users
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
@@ -59,7 +59,7 @@ class SignUp : AppCompatActivity(),MyLoadingButton.MyLoadingButtonClick {
         Firebase.auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener{ task ->
             if (task.isSuccessful){
                 val users = Users(firstName, lastName, email, password)
-                Firebase.firestore.collection(Constants.users).document(task.result.user!!.uid).set(users).addOnCompleteListener{task ->
+                Firebase.firestore.collection(Constants.USERS).document(task.result.user!!.uid).set(users).addOnCompleteListener{task ->
                     if (task.isSuccessful){
                        startActivity(Intent(this@SignUp,Login::class.java))
                         finish()

@@ -29,7 +29,7 @@ class SeeMoreProducts : AppCompatActivity() {
         layoutManager.reverseLayout = true
         layoutManager.stackFromEnd = true
 
-        Firebase.firestore.collection(Constants.products).get().addOnSuccessListener {
+        Firebase.firestore.collection(Constants.PRODUCTS).get().addOnSuccessListener {
             arrayList.clear()
             for (products in it){
                 val allProducts = products.toObject(Products::class.java)
