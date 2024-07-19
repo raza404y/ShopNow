@@ -23,7 +23,7 @@ class ProductDetails : AppCompatActivity() {
     private lateinit var idFromSeeMore: String
     private var count: Int1 = 1
     private var loadedProduct: Products? = null
-
+    private var originalPrice = 0
 
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,11 +41,15 @@ class ProductDetails : AppCompatActivity() {
 
         binding.increment.setOnClickListener {
             binding.counterTv.text = (++count).toString()
+             val priceCount = count * originalPrice
+            binding.priceTv.text = priceCount.toString()
         }
 
         binding.decrement.setOnClickListener {
             if (count > 1) {
                 binding.counterTv.text = (--count).toString()
+               val priceCount = count * originalPrice
+                binding.priceTv.text = priceCount.toString()
             }
         }
 
@@ -69,6 +73,8 @@ class ProductDetails : AppCompatActivity() {
                 val quantities = binding.counterTv.text.toString().toIntOrNull() ?: 1
                 val wishList = WishList(productImage, name, price, quantities)
                 addCartData(wishList)
+
+
             }
         }
 
@@ -114,7 +120,6 @@ class ProductDetails : AppCompatActivity() {
                 products?.id = it.id
 
                 loadedProduct = products
-
                 binding.dressImage.load(products?.productImgUrl) {
                     crossfade(true)
                 }
@@ -122,6 +127,7 @@ class ProductDetails : AppCompatActivity() {
                     binding.dressNameTv.text = productName
                     binding.priceTv.text = price.toString()
                     binding.description.text = description
+                    originalPrice = products.price
                 }
             }
 
